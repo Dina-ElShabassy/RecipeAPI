@@ -1,20 +1,20 @@
 //
-//  RecipeSearchViewModel.swift
+//  NextPageResultsViewModel.swift
 //  RecipeApp
 //
-//  Created by Dina ElShabassy on 11/25/21.
+//  Created by Dina ElShabassy on 11/27/21.
 //  Copyright © 2021 Dina_ElShabassy. All rights reserved.
 //
 
 import Foundation
 
-class RecipeSearchViewModel: NSObject{
+class NextPageResultsViewModel: NSObject{
     var networkModel : NetworkModel!
     
-    var searchResult : Data! {
+    var nextPageResult : Data! {
         didSet{
             
-            self.bindSearchResultViewModelToView()
+            self.bindNextPageResultViewModelToView()
         }
         
     }
@@ -30,9 +30,8 @@ class RecipeSearchViewModel: NSObject{
     }
     
     
-    var bindSearchResultViewModelToView : (()->()) = {}
+    var bindNextPageResultViewModelToView : (()->()) = {}
     var bindViewModelErrorToView : (()->()) = {}
-    var bindNoResultToView : (()->()) = {}
     
     override init() {
         
@@ -41,20 +40,18 @@ class RecipeSearchViewModel: NSObject{
     }
     
     
-    func getSearchResult(searchString : String){
-        networkModel.fetchSearchResult(searchKeyword: searchString) { (result, error) in
+    func getNextPageResults(nextPageURL : String){
+        networkModel.fetchNextPageData(nextPageLink: nextPageURL){ (result, error) in
             
             if let error : Error = error{
             
                 let message = error.localizedDescription
                 self.showError = message
             }
-            else if result?.hits?.count != 0{
-                self.searchResult = result
-            }
             else{
-                self.bindNoResultToView()
+                self.nextPageResult = result
             }
+            
         }
     }
     

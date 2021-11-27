@@ -12,7 +12,7 @@ class RecipeFilterViewModel: NSObject {
     
     var networkModel : NetworkModel!
     
-    var filterResult :[Recipe]! {
+    var filterResult : Data! {
         didSet{
             
             self.bindFilterResultViewModelToView()
@@ -50,7 +50,7 @@ class RecipeFilterViewModel: NSObject {
                 let message = error.localizedDescription
                 self.showError = message
             }
-            else if result?.count != 0{
+            else if result?.hits?.count != 0{
                 self.filterResult = result
             }
             else{

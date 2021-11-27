@@ -10,6 +10,7 @@ import Foundation
 
 struct Data: Codable {
     var hits: [Recipe]?
+    var _links : NextLinks?
 }
 
 struct Recipe: Codable {
@@ -19,4 +20,12 @@ struct Recipe: Codable {
 struct RecipeDetails: Codable {
     var label, image, source, url: String?
     var healthLabels, ingredientLines: [String]?
+}
+
+struct NextLinks:Codable {
+    var next: Link?
+}
+
+struct Link: Codable{
+    var href: String?
 }

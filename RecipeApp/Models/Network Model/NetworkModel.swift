@@ -11,7 +11,7 @@ import Alamofire
 
 class NetworkModel {
     
-    func fetchSearchResult(searchKeyword: String,completion : @escaping ([Recipe]?, Error?)->()){
+    func fetchSearchResult(searchKeyword: String,completion : @escaping (Data?, Error?)->()){
         
         let params: [String: Any] = [
             "q": searchKeyword,
@@ -27,8 +27,11 @@ class NetworkModel {
                 case .success( _):
                     
                     guard let searchResult = response.value else { return }
+                    //var obj = Data()
+                    //obj.links?.next?.href = searchResult.links?.next?.href
+                    //obj.hits = searchResult.hits
                     
-                    completion(searchResult.hits,nil)
+                    completion(searchResult,nil)
                     
                 case .failure(let error):
                     
@@ -40,7 +43,7 @@ class NetworkModel {
         
     }
     
-    func fetchFilterResult(searchKeyword: String,healthFilter: String,completion : @escaping ([Recipe]?, Error?)->()){
+    func fetchFilterResult(searchKeyword: String,healthFilter: String,completion : @escaping (Data?, Error?)->()){
         
         let params: [String: Any] = [
             "q": searchKeyword,
@@ -58,7 +61,7 @@ class NetworkModel {
                     
                     guard let filterResult = response.value else { return }
                     
-                    completion(filterResult.hits,nil)
+                    completion(filterResult,nil)
                     
                 case .failure(let error):
                     
@@ -68,6 +71,28 @@ class NetworkModel {
                 }
             }
         
+    }
+    
+    func fetchNextPageData(nextPageLink: String, completion : @escaping (Data?, Error?)->()){
+    
+        AF.request(nextPageLink)
+            .validate()
+            .responseDecodable(of: Data.self) { (response) in
+                switch response.result {
+                
+                case .success( _):
+                    
+                    guard let result = response.value else { return }
+                    
+                    completion(result,nil)
+                    
+                case .failure(let error):
+                    
+                    completion(nil , error)
+                    
+                    
+                }
+            }
     }
     
 }

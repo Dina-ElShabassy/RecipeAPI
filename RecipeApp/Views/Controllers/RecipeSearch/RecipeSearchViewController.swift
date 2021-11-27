@@ -17,12 +17,15 @@ class RecipeSearchViewController: UIViewController {
     var searchController : UISearchController? = nil
     var recipeSearchViewModel : RecipeSearchViewModel!
     var recipeFilterViewModel : RecipeFilterViewModel!
+    var nextPageViewModel : NextPageResultsViewModel!
+    var dataObj : Data!
     var resultArray : [Recipe] = [Recipe]()
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
+        dataObj = Data()
         //Removing navigation bar borders
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -68,6 +71,16 @@ class RecipeSearchViewController: UIViewController {
             self.onEmptyResultUpdateView()
         }
         
+        nextPageViewModel = NextPageResultsViewModel()
+        nextPageViewModel.bindNextPageResultViewModelToView = {
+            self.onNextPageSuccessUpdateView()
+        }
+                          
+        nextPageViewModel.bindViewModelErrorToView = {
+                              
+           //onFailUpdateView()
+        }
+        
 
         // Do any additional setup after loading the view.
     }
@@ -77,7 +90,8 @@ class RecipeSearchViewController: UIViewController {
         noResultsLabel.isHidden = true
         searchResultTableView.isHidden = false
         resultArray.removeAll()
-        resultArray = recipeSearchViewModel.searchResult
+        dataObj = recipeSearchViewModel.searchResult
+        resultArray = dataObj.hits!
         searchResultTableView.reloadData()
         
     }
@@ -87,7 +101,8 @@ class RecipeSearchViewController: UIViewController {
         noResultsLabel.isHidden = true
         searchResultTableView.isHidden = false
         resultArray.removeAll()
-        resultArray = recipeFilterViewModel.filterResult
+        dataObj = recipeFilterViewModel.filterResult
+        resultArray = dataObj.hits!
         searchResultTableView.reloadData()
     }
     
@@ -95,6 +110,26 @@ class RecipeSearchViewController: UIViewController {
        searchResultTableView.isHidden = true
        noResultsLabel.isHidden = false
         
+    }
+    
+    func onNextPageSuccessUpdateView(){
+        noResultsLabel.isHidden = true
+        searchResultTableView.isHidden = false
+        resultArray.removeAll()
+        dataObj = nextPageViewModel.nextPageResult
+        resultArray = dataObj.hits!
+        searchResultTableView.reloadData()
+    }
+    
+    func scrollToTop() {
+        // 1
+        let topRow = IndexPath(row: 0,
+                               section: 0)
+                               
+        // 2
+        self.searchResultTableView.scrollToRow(at: topRow,
+                                   at: .top,
+                                   animated: true)
     }
     
     

@@ -35,6 +35,18 @@ extension RecipeSearchViewController: UITableViewDelegate, UITableViewDataSource
         return 166
       
     }
-
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.section == tableView.numberOfSections - 1 &&
+            indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+            //i am at the bottom of the table view
+            if let nextObj = dataObj._links?.next {
+                scrollToTop()
+                let nextPageLink = nextObj.href
+                nextPageViewModel.getNextPageResults(nextPageURL: nextPageLink!)
+            }
+            
+        }
+    }
 
 }
