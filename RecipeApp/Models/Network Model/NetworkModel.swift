@@ -40,4 +40,34 @@ class NetworkModel {
         
     }
     
+    func fetchFilterResult(searchKeyword: String,healthFilter: String,completion : @escaping ([Recipe]?, Error?)->()){
+        
+        let params: [String: Any] = [
+            "q": searchKeyword,
+            "app_id": Constants.app_id,
+            "app_key": Constants.app_key,
+            "health": healthFilter
+        ]
+        
+        AF.request(Constants.searchURL, parameters : params)
+            .validate()
+            .responseDecodable(of: Data.self) { (response) in
+                switch response.result {
+                
+                case .success( _):
+                    
+                    guard let filterResult = response.value else { return }
+                    
+                    completion(filterResult.hits,nil)
+                    
+                case .failure(let error):
+                    
+                    completion(nil , error)
+                    
+                    
+                }
+            }
+        
+    }
+    
 }

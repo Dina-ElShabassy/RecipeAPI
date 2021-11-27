@@ -41,20 +41,28 @@ extension RecipeSearchViewController: UISearchBarDelegate{
         guard addRestrictionsToSearchBar(searchKeyword: searchBar.text!) != false
             else{
                 searchBar.text = ""
+                filterCollectionView.allowsSelection = false
                 return
         }
         if (searchBar.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.isEmpty == true{
             //alert
             Alert().showAlert(title: "Invalid input", message: "Empty spaces only are not allowed", vc: self)
             searchBar.text = ""
+            filterCollectionView.allowsSelection = false
                     }
         else
         {
-            recipeSearchViewModel!.getSearchResult(searchString: searchBar.text!)
+            recipeSearchViewModel.getSearchResult(searchString: searchBar.text!)
+            filterCollectionView.allowsSelection = true
             dismiss(animated: true, completion: nil)
         }
         
-        
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchResultTableView.isHidden = true
+        noResultsLabel.isHidden = false
+        filterCollectionView.allowsSelection = false
     }
     
     func addRestrictionsToSearchBar(searchKeyword : String) -> Bool

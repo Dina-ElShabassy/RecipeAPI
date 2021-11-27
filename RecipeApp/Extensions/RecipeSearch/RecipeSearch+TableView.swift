@@ -12,18 +12,18 @@ import SDWebImage
 
 extension RecipeSearchViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchResultArray.count
+        return resultArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipeSearchCell", for: indexPath) as? TableViewCell
         
-        cell?.recipeImage.sd_setImage(with: URL(string: searchResultArray[indexPath.row].recipe!.image!))
-        cell?.recipeTitle.text = searchResultArray[indexPath.row].recipe?.label
-        cell?.recipeSource.text = searchResultArray[indexPath.row].recipe?.source
+        cell?.recipeImage.sd_setImage(with: URL(string: resultArray[indexPath.row].recipe!.image!))
+        cell?.recipeTitle.text = resultArray[indexPath.row].recipe?.label
+        cell?.recipeSource.text = resultArray[indexPath.row].recipe?.source
         var healthLabels = ""
-        for label in searchResultArray[indexPath.row].recipe!.healthLabels!{
+        for label in resultArray[indexPath.row].recipe!.healthLabels!{
             healthLabels.append("\(label),")
         }
         cell?.recipeHealthLabels.text = healthLabels

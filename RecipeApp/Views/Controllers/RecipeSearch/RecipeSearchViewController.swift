@@ -16,25 +16,12 @@ class RecipeSearchViewController: UIViewController {
     @IBOutlet weak var noResultsLabel: UILabel!
     var searchController : UISearchController? = nil
     var recipeSearchViewModel : RecipeSearchViewModel!
-    var searchResultArray : [Recipe] = [Recipe]()
+    var recipeFilterViewModel : RecipeFilterViewModel!
+    var resultArray : [Recipe] = [Recipe]()
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        recipeSearchViewModel = RecipeSearchViewModel()
-        recipeSearchViewModel.bindSearchResultViewModelToView = {
-            self.onSuccessUpdateView()
-        }
-                          
-        recipeSearchViewModel.bindViewModelErrorToView = {
-                              
-           //onFailUpdateView()
-        }
-        
-        recipeSearchViewModel.bindNoResultToView = {
-            self.onEmptyResultUpdateView()
-        }
         
         //Removing navigation bar borders
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -48,25 +35,65 @@ class RecipeSearchViewController: UIViewController {
         filterCollectionView.delegate = self
         filterCollectionView.dataSource = self
         
+        filterCollectionView.allowsSelection = false
+        
         searchResultTableView.delegate = self
         searchResultTableView.dataSource = self
+        
+        recipeSearchViewModel = RecipeSearchViewModel()
+        recipeSearchViewModel.bindSearchResultViewModelToView = {
+            self.onSearchSuccessUpdateView()
+        }
+                          
+        recipeSearchViewModel.bindViewModelErrorToView = {
+                              
+           //onFailUpdateView()
+        }
+        
+        recipeSearchViewModel.bindNoResultToView = {
+            self.onEmptyResultUpdateView()
+        }
+        
+        recipeFilterViewModel = RecipeFilterViewModel()
+        recipeFilterViewModel.bindFilterResultViewModelToView = {
+            self.onFilterSuccessUpdateView()
+        }
+                          
+        recipeFilterViewModel.bindViewModelErrorToView = {
+                              
+           //onFailUpdateView()
+        }
+        
+        recipeFilterViewModel.bindNoResultToView = {
+            self.onEmptyResultUpdateView()
+        }
         
 
         // Do any additional setup after loading the view.
     }
     
-    func onSuccessUpdateView(){
+    func onSearchSuccessUpdateView(){
         //hideLoading(activityIndicator: activityIndicator)
         noResultsLabel.isHidden = true
         searchResultTableView.isHidden = false
-        searchResultArray = recipeSearchViewModel.searchResult
+        resultArray.removeAll()
+        resultArray = recipeSearchViewModel.searchResult
         searchResultTableView.reloadData()
         
     }
     
+    func onFilterSuccessUpdateView(){
+        //hideLoading(activityIndicator: activityIndicator)
+        noResultsLabel.isHidden = true
+        searchResultTableView.isHidden = false
+        resultArray.removeAll()
+        resultArray = recipeFilterViewModel.filterResult
+        searchResultTableView.reloadData()
+    }
+    
     func onEmptyResultUpdateView(){
        searchResultTableView.isHidden = true
-        noResultsLabel.isHidden = false
+       noResultsLabel.isHidden = false
         
     }
     

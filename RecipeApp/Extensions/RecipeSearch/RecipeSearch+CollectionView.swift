@@ -20,6 +20,26 @@ extension RecipeSearchViewController: UICollectionViewDelegate, UICollectionView
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var healthFilter : String?
+        
+        switch indexPath.row {
+        case 0:
+            recipeSearchViewModel.getSearchResult(searchString: searchController!.searchBar.text!)
+        case 1:
+            healthFilter = "low-sugar"
+            recipeFilterViewModel.getFilterResult(searchString: searchController!.searchBar.text!, healthString: healthFilter!)
+        case 2:
+            healthFilter = "keto-friendly"
+            recipeFilterViewModel.getFilterResult(searchString: searchController!.searchBar.text!, healthString: healthFilter!)
+        case 3:
+            healthFilter = "vegan"
+            recipeFilterViewModel.getFilterResult(searchString: searchController!.searchBar.text!, healthString: healthFilter!)
+        default:
+            print("index out of range")
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
