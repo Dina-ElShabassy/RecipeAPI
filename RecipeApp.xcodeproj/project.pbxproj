@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		277999F6A365B3A9825C939B /* Pods_RecipeApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFDF7FA5D9408548ED4AB46F /* Pods_RecipeApp.framework */; };
+		A90625FB2752F5B800916572 /* RecipeDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90625FA2752F5B800916572 /* RecipeDetailsViewController.swift */; };
+		A90626002753027300916572 /* IngredientsListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90625FF2753027300916572 /* IngredientsListTableView.swift */; };
 		A90825A3274E8C8D00B3F99F /* SearchSuggestionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90825A2274E8C8D00B3F99F /* SearchSuggestionExtension.swift */; };
 		A90A875A274DC02300C5941A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90A8759274DC02300C5941A /* AppDelegate.swift */; };
 		A90A875C274DC02300C5941A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90A875B274DC02300C5941A /* SceneDelegate.swift */; };
@@ -43,6 +45,8 @@
 
 /* Begin PBXFileReference section */
 		629EC1C5B715981B043F6531 /* Pods-RecipeApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecipeApp.debug.xcconfig"; path = "Target Support Files/Pods-RecipeApp/Pods-RecipeApp.debug.xcconfig"; sourceTree = "<group>"; };
+		A90625FA2752F5B800916572 /* RecipeDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsViewController.swift; sourceTree = "<group>"; };
+		A90625FF2753027300916572 /* IngredientsListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsListTableView.swift; sourceTree = "<group>"; };
 		A90825A2274E8C8D00B3F99F /* SearchSuggestionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionExtension.swift; sourceTree = "<group>"; };
 		A90A8756274DC02300C5941A /* RecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A90A8759274DC02300C5941A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +110,22 @@
 				BFDF7FA5D9408548ED4AB46F /* Pods_RecipeApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A90625F92752F55100916572 /* RecipeDetails */ = {
+			isa = PBXGroup;
+			children = (
+				A90625FA2752F5B800916572 /* RecipeDetailsViewController.swift */,
+			);
+			path = RecipeDetails;
+			sourceTree = "<group>";
+		};
+		A90625FE2753023B00916572 /* RecipeDetails */ = {
+			isa = PBXGroup;
+			children = (
+				A90625FF2753027300916572 /* IngredientsListTableView.swift */,
+			);
+			path = RecipeDetails;
 			sourceTree = "<group>";
 		};
 		A90825A1274E8C5F00B3F99F /* SearchSuggestions */ = {
@@ -175,6 +195,7 @@
 		A90A877C274DDDDE00C5941A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A90625F92752F55100916572 /* RecipeDetails */,
 				A90A8787274DE64B00C5941A /* SearchSuggestions */,
 				A90A8786274DE62800C5941A /* RecipeSearch */,
 			);
@@ -201,6 +222,7 @@
 		A90A8781274DDE7800C5941A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A90625FE2753023B00916572 /* RecipeDetails */,
 				A90825A1274E8C5F00B3F99F /* SearchSuggestions */,
 				A90A878A274DE7D100C5941A /* RecipeSearch */,
 			);
@@ -423,11 +445,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9E9C6352751B095007452DD /* RecipeFilterViewModel.swift in Sources */,
+				A90625FB2752F5B800916572 /* RecipeDetailsViewController.swift in Sources */,
 				A90A877E274DDE1300C5941A /* RecipeSearchViewController.swift in Sources */,
 				A90A8785274DE1B200C5941A /* SearchSuggestionsTableViewController.swift in Sources */,
 				A90A8789274DE69C00C5941A /* CollectionViewCell.swift in Sources */,
 				A9223D40274F1624000286C4 /* NetworkModel.swift in Sources */,
 				A90A8791274DF31B00C5941A /* RecipeSearch+TableView.swift in Sources */,
+				A90626002753027300916572 /* IngredientsListTableView.swift in Sources */,
 				A9E9C6372751CAA2007452DD /* NextPageResultsViewModel.swift in Sources */,
 				A90A875A274DC02300C5941A /* AppDelegate.swift in Sources */,
 				A90A8783274DDEA500C5941A /* RecipeSearchExtention.swift in Sources */,

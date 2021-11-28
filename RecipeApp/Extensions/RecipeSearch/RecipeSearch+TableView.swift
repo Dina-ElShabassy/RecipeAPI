@@ -48,5 +48,13 @@ extension RecipeSearchViewController: UITableViewDelegate, UITableViewDataSource
             
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recipeDetailsVC = self.storyboard?.instantiateViewController(withIdentifier: "RecipeDetails") as! RecipeDetailsViewController
+        
+        recipeDetailsVC.recipeDetailsObj = resultArray[indexPath.row].recipe
+        
+        self.navigationController?.pushViewController(recipeDetailsVC, animated: true)
+    }
 
 }
