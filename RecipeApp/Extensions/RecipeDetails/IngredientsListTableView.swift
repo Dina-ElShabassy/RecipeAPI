@@ -25,3 +25,17 @@ extension RecipeDetailsViewController: UITableViewDelegate, UITableViewDataSourc
     
     
 }
+
+extension RecipeDetailsViewController{
+    
+    @objc func share(sender:UIView){
+
+        if let recipeWebsite = URL(string: recipeDetailsObj.url!) {
+            let activityVC = UIActivityViewController(activityItems: [recipeTitle!,recipeWebsite], applicationActivities: nil)
+
+            activityVC.popoverPresentationController?.sourceView = sender
+            self.present(activityVC, animated: true, completion: nil)
+        }
+        
+    }
+}

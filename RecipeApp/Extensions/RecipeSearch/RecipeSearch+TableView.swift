@@ -43,6 +43,8 @@ extension RecipeSearchViewController: UITableViewDelegate, UITableViewDataSource
             if let nextObj = dataObj._links?.next {
                 scrollToTop()
                 let nextPageLink = nextObj.href
+                activityIndicator.isHidden = false
+                activityIndicator.startAnimating()
                 nextPageViewModel.getNextPageResults(nextPageURL: nextPageLink!)
             }
             

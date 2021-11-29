@@ -23,6 +23,9 @@ extension RecipeSearchViewController: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var healthFilter : String?
         
+        noResultsLabel.isHidden = true
+        activityIndicator.startAnimating()
+        
         switch indexPath.row {
         case 0:
             recipeSearchViewModel.getSearchResult(searchString: searchController!.searchBar.text!)

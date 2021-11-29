@@ -12,7 +12,8 @@ import UIKit
 extension SearchSuggestionsTableViewController: UISearchResultsUpdating{
     
     func updateSearchResults(for searchController: UISearchController) {
-        
+        //show search history table
+        searchController.searchResultsController?.view.isHidden = false
     }
     
 }
