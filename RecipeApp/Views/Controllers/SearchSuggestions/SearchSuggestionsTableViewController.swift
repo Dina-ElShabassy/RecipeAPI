@@ -14,7 +14,9 @@ class SearchSuggestionsTableViewController: UITableViewController {
     var searchHistoryDelegate : SearchHistoryProtocol!
     
     override func viewWillAppear(_ animated: Bool) {
+        //get the last 10 elements search history array from user defaults
         searchHistoryArray = UserDefaults.standard.stringArray(forKey: "SearchHistory")?.suffix(10) ?? []
+        //to show elements in reversed way
         searchHistoryArray.reverse()
         self.tableView.reloadData()
     }
@@ -42,6 +44,7 @@ class SearchSuggestionsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //pass selected search history to previous view using delegate
         searchHistoryDelegate.getSelectedSearchHistoryRecipes(selectedSearchHistory: searchHistoryArray[indexPath.row])
         dismiss(animated: true, completion: nil)
     }

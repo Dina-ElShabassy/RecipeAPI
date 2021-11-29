@@ -41,6 +41,7 @@ extension RecipeSearchViewController: UITableViewDelegate, UITableViewDataSource
             indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
             //i am at the bottom of the table view
             if let nextObj = dataObj._links?.next {
+                //scroll to top and get the data of next page
                 scrollToTop()
                 let nextPageLink = nextObj.href
                 activityIndicator.isHidden = false

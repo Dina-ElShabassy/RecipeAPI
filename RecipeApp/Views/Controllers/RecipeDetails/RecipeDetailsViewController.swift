@@ -24,8 +24,10 @@ class RecipeDetailsViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        //add share bar button item to navigation item
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.action, target: self, action: #selector(share(sender:)))
         
+        //delegate
         ingredientsListTableView.delegate = self
         ingredientsListTableView.dataSource = self
         

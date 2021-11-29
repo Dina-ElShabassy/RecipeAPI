@@ -17,7 +17,6 @@ extension RecipeDetailsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
         cell.textLabel!.text = ingredientListArray[indexPath.row]
         
         return cell
@@ -28,6 +27,7 @@ extension RecipeDetailsViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension RecipeDetailsViewController{
     
+    //share bar button item action
     @objc func share(sender:UIView){
 
         if let recipeWebsite = URL(string: recipeDetailsObj.url!) {

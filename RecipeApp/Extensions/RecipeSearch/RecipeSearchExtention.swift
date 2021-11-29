@@ -19,18 +19,17 @@ extension RecipeSearchViewController: UISearchBarDelegate, SearchHistoryProtocol
             searchController = UISearchController(searchResultsController: searchSuggestionsVC)
             searchController?.searchResultsUpdater = searchSuggestionsVC
             
+            //delegate
             searchSuggestionsVC.searchHistoryDelegate = self
 
             //configures the search bar, and embeds it within the navigation bar
             let searchBar = searchController?.searchBar
-    //        searchBar?.sizeToFit()
-            searchBar?.placeholder = "Search for recipe name or food ingredient"
+            searchBar?.placeholder = "Search for recipe name"
             searchController?.hidesNavigationBarDuringPresentation = false
-            navigationItem.hidesSearchBarWhenScrolling = false
-            
-            navigationItem.titleView = searchBar
-            //navigationItem.searchController = searchController
             searchController?.searchBar.delegate = self
+            
+            navigationItem.hidesSearchBarWhenScrolling = false
+            navigationItem.titleView = searchBar
             definesPresentationContext = true
             
             //change cancel button color
@@ -42,11 +41,13 @@ extension RecipeSearchViewController: UISearchBarDelegate, SearchHistoryProtocol
         
         guard addRestrictionsToSearchBar(searchKeyword: searchBar.text!) != false
             else{
+                //if user enters arabic letters
                 searchBar.text = ""
                 filterCollectionView.allowsSelection = false
                 return
         }
         if (searchBar.text?.trimmingCharacters(in: CharacterSet.whitespaces))?.isEmpty == true{
+            //if user enters white spaces only
             //alert
             Alert().showAlert(title: "Invalid input", message: "Empty spaces only are not allowed", vc: self)
             searchBar.text = ""
@@ -54,7 +55,9 @@ extension RecipeSearchViewController: UISearchBarDelegate, SearchHistoryProtocol
                     }
         else
         {
+            //valid inputs
             searchKeyword = searchBar.text!
+            noResultsLabel.isHidden = true
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
             recipeSearchViewModel.getSearchResult(searchString: searchKeyword!)
@@ -96,11 +99,16 @@ extension RecipeSearchViewController: UISearchBarDelegate, SearchHistoryProtocol
     
     func onSearchSuccessUpdateView(){
         filterCollectionView.allowsSelection = true
-        if searchHistoryArray.contains(searchKeyword!){
-            let selectedIndex = searchHistoryArray!.firstIndex(of: searchKeyword!)
+        //remove trailing and leading spaces
+        let trimmedSearchKeyword = searchKeyword?.trimmingCharacters(in: .whitespaces)
+        //checks if user searchs for keyword already in search history
+        if searchHistoryArray.contains(trimmedSearchKeyword!){
+            //get the index of keyword in array and remove it
+            let selectedIndex = searchHistoryArray!.firstIndex(of: trimmedSearchKeyword!)
             searchHistoryArray?.remove(at: selectedIndex!)
         }
-        searchHistoryArray.append(searchKeyword!)
+        //add search keyword to array in user defaults
+        searchHistoryArray.append(trimmedSearchKeyword!)
         userDefaults.set(searchHistoryArray, forKey: "SearchHistory")
         activityIndicator.stopAnimating()
         noResultsLabel.isHidden = true
@@ -148,10 +156,10 @@ extension RecipeSearchViewController: UISearchBarDelegate, SearchHistoryProtocol
         Alert().showAlert(title: "Error", message: recipeSearchViewModel.showError, vc: self)
     }
     
+    //function to scroll top when user is at the bottom of table view
     func scrollToTop() {
         
         let topRow = IndexPath(row: 0,section: 0)
-     
         self.searchResultTableView.scrollToRow(at: topRow, at: .top, animated: false)
     }
     

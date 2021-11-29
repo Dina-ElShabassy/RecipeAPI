@@ -24,15 +24,13 @@ class RecipeSearchViewController: UIViewController {
     var dataObj : Data!
     var resultArray : [Recipe] = [Recipe]()
     var searchKeyword : String?
-    
-    // Access Shared Defaults Object
     let userDefaults = UserDefaults.standard
     var searchHistoryArray: [String]!
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
+        //set search history array from user defaults if doesn't exist and if exists write on it
         searchHistoryArray = userDefaults.stringArray(forKey: "SearchHistory") ?? []
         
         dataObj = Data()
@@ -43,10 +41,12 @@ class RecipeSearchViewController: UIViewController {
         //show search bar function
         self.showSearchBar()
         
+        //avoid clicking on filter collection view items before search
+        filterCollectionView.allowsSelection = false
+        
+        //delegates
         filterCollectionView.delegate = self
         filterCollectionView.dataSource = self
-        
-        filterCollectionView.allowsSelection = false
         
         searchResultTableView.delegate = self
         searchResultTableView.dataSource = self

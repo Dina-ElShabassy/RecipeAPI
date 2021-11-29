@@ -27,9 +27,6 @@ class NetworkModel {
                 case .success( _):
                     
                     guard let searchResult = response.value else { return }
-                    //var obj = Data()
-                    //obj.links?.next?.href = searchResult.links?.next?.href
-                    //obj.hits = searchResult.hits
                     
                     completion(searchResult,nil)
                     
