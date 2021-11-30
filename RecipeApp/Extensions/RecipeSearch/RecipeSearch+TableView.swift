@@ -19,15 +19,18 @@ extension RecipeSearchViewController: UITableViewDelegate, UITableViewDataSource
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "recipeSearchCell", for: indexPath) as? TableViewCell
         
-        cell?.recipeImage.sd_setImage(with: URL(string: resultArray[indexPath.row].recipe!.image!))
-        cell?.recipeTitle.text = resultArray[indexPath.row].recipe?.label
-        cell?.recipeSource.text = resultArray[indexPath.row].recipe?.source
-        var healthLabels = ""
-        for label in resultArray[indexPath.row].recipe!.healthLabels!{
-            healthLabels.append("\(label),")
+        if let recipeImage = resultArray[indexPath.row].recipe!.image{
+            cell?.recipeImage.sd_setImage(with: URL(string: recipeImage))
         }
-        cell?.recipeHealthLabels.text = healthLabels
-        
+        cell?.recipeTitle.text = resultArray[indexPath.row].recipe?.label ?? ""
+        cell?.recipeSource.text = resultArray[indexPath.row].recipe?.source ?? ""
+        var healthLabels = ""
+        if let healthArray = resultArray[indexPath.row].recipe!.healthLabels{
+            for label in healthArray{
+                healthLabels.append("\(label),")
+            }
+            cell?.recipeHealthLabels.text = healthLabels
+        }
         return cell!
     }
     

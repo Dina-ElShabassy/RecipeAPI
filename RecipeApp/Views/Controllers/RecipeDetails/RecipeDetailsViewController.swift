@@ -31,6 +31,10 @@ class RecipeDetailsViewController: UIViewController {
         ingredientsListTableView.delegate = self
         ingredientsListTableView.dataSource = self
         
+        guard recipeDetailsObj.image != nil && recipeDetailsObj.ingredientLines != nil && recipeDetailsObj.label != nil else{
+            return
+        }
+        
         recipeImage.sd_setImage(with: URL(string: recipeDetailsObj.image!))
         recipeTitle.text = recipeDetailsObj.label!
         ingredientListArray = recipeDetailsObj.ingredientLines!
