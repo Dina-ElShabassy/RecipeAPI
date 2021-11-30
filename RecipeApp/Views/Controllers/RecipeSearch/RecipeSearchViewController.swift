@@ -72,7 +72,7 @@ class RecipeSearchViewController: UIViewController {
                           
         recipeFilterViewModel.bindViewModelErrorToView = {
                               
-            self.onFailUpdateView()
+            self.onFilterFailUpdateView()
         }
         
         recipeFilterViewModel.bindNoResultToView = {

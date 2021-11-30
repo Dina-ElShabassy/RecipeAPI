@@ -156,6 +156,12 @@ extension RecipeSearchViewController: UISearchBarDelegate, SearchHistoryProtocol
         Alert().showAlert(title: "Error", message: recipeSearchViewModel.showError, vc: self)
     }
     
+    func onFilterFailUpdateView(){
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
+        Alert().showAlert(title: "Error", message: recipeFilterViewModel.showError, vc: self)
+    }
+    
     //function to scroll top when user is at the bottom of table view
     func scrollToTop() {
         
